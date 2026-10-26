@@ -1,0 +1,6 @@
+{
+  "name": "SHERISE - Women Empowerment & Livelihood Platform",
+  "description": "Mobile-friendly platform for rural women, homemakers, and learners to access verified government schemes, skill-based micro-earnings, education second chances, business ideas, budget planning, emergency help, and community support in Tamil, English, and Hindi.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

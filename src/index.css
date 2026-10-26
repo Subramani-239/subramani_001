@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@layer base {
+  *, ::before, ::after {
+    font-family: 'Mukta Malar', 'Noto Sans Devanagari', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  body {
+    -webkit-tap-highlight-color: transparent;
+    color: #1f2937;
+    background-color: #fcf9f6;
+  }
+}
+
+/* Custom scrollbars for friendly look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #fbcfe8;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f472b6;
+}
+
+/* Accessible focus ring */
+:focus-visible {
+  outline: 2px solid #db2777;
+  outline-offset: 2px;
+}
