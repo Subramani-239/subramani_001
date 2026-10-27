@@ -25,7 +25,8 @@ import {
   X,
   ExternalLink,
   AlertCircle,
-  FileText
+  FileText,
+  UserCheck
 } from 'lucide-react';
 import { Language, UserProfile, ActiveTab } from '../types';
 import { sampleDemoProfiles, generateDemoId } from '../data/demoProfilesData';
@@ -138,6 +139,147 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 ? 'ஹேக்கத்தான் செயல்முறை விளக்கத்திற்கு மாதிரி பயனர் சுயவிவரங்களை எளிதாக மாற்றலாம்.'
                 : 'Click any sample persona below to immediately simulate different user journeys.'}
             </p>
+          </div>
+        </div>
+
+        {/* Platform Role Switcher (Learner, Teacher, Entrepreneur, Admin) */}
+        <div className="bg-gradient-to-br from-rose-50 via-white to-pink-50 rounded-3xl border-2 border-rose-200 p-5 sm:p-6 shadow-xs space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-rose-100 text-rose-800 rounded-full text-[11px] font-extrabold uppercase tracking-wide">
+                <span>{lang === 'ta' ? 'செயல்பாட்டு பங்கு தேர்வு' : lang === 'hi' ? 'भूमिका चयन' : 'Active Role Selection'}</span>
+              </div>
+              <h2 className="text-base font-black text-stone-900 mt-1 flex items-center gap-2">
+                <UserCheck className="w-5 h-5 text-rose-600" />
+                <span>
+                  {lang === 'ta'
+                    ? 'உங்கள் தளம் சார்ந்த பங்கு (Switch Platform Role)'
+                    : lang === 'hi'
+                    ? 'मंच पर आपकी भूमिका (Switch Role)'
+                    : 'Choose Your Platform Role'}
+                </span>
+              </h2>
+              <p className="text-xs text-stone-600 mt-0.5">
+                {lang === 'ta'
+                  ? 'கற்றல், கற்பித்தல், தொழில் முனைவு அல்லது நிர்வாகி நிலைகளுக்கு இடையில் எளிதாக மாறலாம்.'
+                  : lang === 'hi'
+                  ? 'शिक्षार्थी, शिक्षिका, उद्यमी अथवा व्यवस्थापक (Admin) के रूप में तुरंत स्विच करें।'
+                  : 'Fast switch between Learner, Teacher, Woman Entrepreneur, and Admin roles to explore specialized workflows.'}
+              </p>
+            </div>
+
+            <div className="px-3 py-1.5 bg-white border border-rose-300 rounded-xl text-xs font-bold text-rose-900 shadow-2xs">
+              <span className="text-stone-500 font-normal mr-1.5">{lang === 'ta' ? 'தற்போதைய பங்கு:' : 'Active Role:'}</span>
+              <span className="capitalize font-black text-rose-700">{formData.platformRole || 'learner'}</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {[
+              {
+                id: 'learner' as const,
+                title: lang === 'ta' ? 'மாணவி / கற்பவர் (Learner)' : lang === 'hi' ? 'शिक्षार्थी (Learner)' : 'Learner',
+                desc:
+                  lang === 'ta'
+                    ? 'ஆசிரியைகளை கண்டறிந்து திறன் வகுப்புகளை முன்பதிவு செய்யவும், சான்றிதழ் பெறவும்.'
+                    : lang === 'hi'
+                    ? 'प्रशिक्षकों को खोजें, कोर्स बुक करें और प्रमाणित हुनर सीखें।'
+                    : 'Browse verified teachers, book skill courses, demo UPI payment, track certificates.',
+                icon: '🎓',
+                targetTab: 'skills-learning' as ActiveTab,
+                quickAction: lang === 'ta' ? 'வகுப்புகளை பார்க்க' : 'Browse Courses',
+              },
+              {
+                id: 'teacher' as const,
+                title: lang === 'ta' ? 'ஆசிரியை / பயிற்றுவிப்பாளர் (Teacher)' : lang === 'hi' ? 'शिक्षिका / ट्रेनर (Teacher)' : 'Teacher / Trainer',
+                desc:
+                  lang === 'ta'
+                    ? 'சொந்த பாடத்திட்டம் உருவாக்கவும், கட்டணம் நிர்ணயிக்கவும், 90% நிகர வருவாய் பெறவும்.'
+                    : lang === 'hi'
+                    ? 'अपने कोर्स बनाएं, फीस तय करें और 90% शुद्ध कमाई पाएं।'
+                    : 'Offer skill courses, set prices, earn 90% share, request compliant UPI payouts.',
+                icon: '👩‍🏫',
+                targetTab: 'skills-learning' as ActiveTab,
+                quickAction: lang === 'ta' ? 'பாடங்களை நிர்வகிக்க' : 'Manage Courses',
+              },
+              {
+                id: 'entrepreneur' as const,
+                title: lang === 'ta' ? 'பெண் தொழில் முனைவோர் (Entrepreneur)' : lang === 'hi' ? 'महिला उद्यमी (Entrepreneur)' : 'Woman Entrepreneur',
+                desc:
+                  lang === 'ta'
+                    ? 'தயாரிப்புகள்/சேவைகளை விளம்பரப்படுத்தவும், மொத்த விற்பனையாளர் கண்டறியவும்.'
+                    : lang === 'hi'
+                    ? 'अपने उत्पाद प्रदर्शित करें, थोक विक्रेता खोजें और आजीविका बढ़ाएं।'
+                    : 'Showcase business products, find raw materials & government grants.',
+                icon: '💼',
+                targetTab: 'entrepreneurs' as ActiveTab,
+                quickAction: lang === 'ta' ? 'தொழில் அரங்கம்' : 'Open Showcase',
+              },
+              {
+                id: 'admin' as const,
+                title: lang === 'ta' ? 'நிர்வாகி (Admin)' : lang === 'hi' ? 'व्यवस्थापक (Admin)' : 'Platform Admin',
+                desc:
+                  lang === 'ta'
+                    ? 'பாடங்களை அங்கீகரிக்கவும், பிணக்கு/புகார்களை தீர்க்கவும், 10% கமிஷன் மேற்பார்வை.'
+                    : lang === 'hi'
+                    ? 'कोर्स सत्यापन, शिकायत निवारण और 10% कमीशन ऑडिटिंग।'
+                    : 'Approve courses, resolve escrow disputes, review 10% commission financial audit.',
+                icon: '🛡️',
+                targetTab: 'payments' as ActiveTab,
+                quickAction: lang === 'ta' ? 'கட்டண கணக்குகள்' : 'Audit Payments',
+              },
+            ].map((roleItem) => {
+              const isActiveRole = (formData.platformRole || 'learner') === roleItem.id;
+              return (
+                <div
+                  key={roleItem.id}
+                  onClick={() => {
+                    const updated = { ...formData, platformRole: roleItem.id };
+                    setFormData(updated);
+                    onUpdateProfile(updated);
+                  }}
+                  className={`cursor-pointer p-4 rounded-2xl border-2 transition text-left flex flex-col justify-between ${
+                    isActiveRole
+                      ? 'bg-white border-rose-600 shadow-md ring-2 ring-rose-300'
+                      : 'bg-white/80 border-stone-200 hover:border-rose-300 hover:bg-white'
+                  }`}
+                >
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-2xl">{roleItem.icon}</span>
+                      {isActiveRole ? (
+                        <span className="px-2 py-0.5 bg-rose-600 text-white rounded-full text-[10px] font-extrabold">
+                          {lang === 'ta' ? 'தேர்வு செய்யப்பட்டது' : 'Active'}
+                        </span>
+                      ) : (
+                        <span className="text-[10px] text-stone-400 font-bold hover:text-stone-700">
+                          {lang === 'ta' ? 'தேர்வு செய்' : 'Switch'}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="font-bold text-xs text-stone-900">{roleItem.title}</h3>
+                    <p className="text-[11px] text-stone-600 leading-relaxed">{roleItem.desc}</p>
+                  </div>
+
+                  <div className="pt-3 mt-3 border-t border-stone-100 flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        const updated = { ...formData, platformRole: roleItem.id };
+                        setFormData(updated);
+                        onUpdateProfile(updated);
+                        onNavigate(roleItem.targetTab);
+                      }}
+                      className="text-[11px] font-bold text-rose-700 hover:text-rose-900 inline-flex items-center gap-1"
+                    >
+                      <span>{roleItem.quickAction}</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 

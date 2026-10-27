@@ -25,7 +25,9 @@ import {
   MessageCircle,
   GraduationCap as LearnIcon,
   UserCheck,
-  MapPin
+  MapPin,
+  Briefcase,
+  CreditCard
 } from 'lucide-react';
 import { Language, ActiveTab, UserProfile } from '../types';
 import { translations } from '../data/translations';
@@ -92,6 +94,62 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       color: 'from-indigo-50 to-blue-50 border-indigo-200 text-indigo-950',
       badge: lang === 'ta' ? 'கற்றல் / கற்பித்தல்' : lang === 'hi' ? 'सीखें / सिखाएं' : 'Learn / Teach',
       badgeColor: 'bg-indigo-100 text-indigo-800',
+    },
+    {
+      tab: 'find-teachers' as ActiveTab,
+      title: lang === 'ta' ? 'ஆசிரியைகளை கண்டறிதல் (Find Teachers)' : lang === 'hi' ? 'प्रमाणित शिक्षिकाएं खोजें' : 'Find Teachers & Mentors',
+      subtitle:
+        lang === 'ta'
+          ? 'தையல், உணவு, கைவினை, கம்ப்யூட்டர் திறன் ஆசிரியைகள். நேரடி முன்பதிவு & சான்றிதழ்.'
+          : lang === 'hi'
+          ? 'सिलाई, बेकिंग, हस्तशिल्प और कंप्यूटर की सत्यापित शिक्षिकाएं। क्लास बुकिंग।'
+          : 'Browse verified skill instructors in your district. Book online/in-person classes & earn verifiable certificates.',
+      icon: <Users className="w-6 h-6 text-purple-600" />,
+      color: 'from-purple-50 to-pink-50 border-purple-200 text-purple-950',
+      badge: lang === 'ta' ? 'நேரடி முன்பதிவு' : lang === 'hi' ? 'सत्यापित मेंटर्स' : 'Verified Teachers',
+      badgeColor: 'bg-purple-100 text-purple-800 font-bold',
+    },
+    {
+      tab: 'earn' as ActiveTab,
+      title: lang === 'ta' ? 'வருவாய் & வேலைவாய்ப்பு (Earn)' : lang === 'hi' ? 'कमाई और आजीविका (Earn)' : 'Earn & Employment Opportunities',
+      subtitle:
+        lang === 'ta'
+          ? 'தையல் ஒப்பந்தங்கள், வீட்டு உணவு ஆர்டர்கள், இ-சேவை மையம் & கைவினை பொருட்கள்.'
+          : lang === 'hi'
+          ? 'सिलाई अनुबंध, टिफिन सेवा, ई-सेवा केंद्र और हस्तशिल्प बिक्री अवसर।'
+          : 'Verified tailoring bulk orders, tiffin supply, e-Sevai kiosk contracts and jute handicrafts.',
+      icon: <Briefcase className="w-6 h-6 text-emerald-600" />,
+      color: 'from-emerald-50 to-teal-50 border-emerald-200 text-emerald-950',
+      badge: lang === 'ta' ? 'உறுதிப்படுத்தப்பட்ட வாய்ப்பு' : lang === 'hi' ? 'कमाई के अवसर' : 'Livelihood & Jobs',
+      badgeColor: 'bg-emerald-100 text-emerald-800 font-bold',
+    },
+    {
+      tab: 'entrepreneurs' as ActiveTab,
+      title: lang === 'ta' ? 'பெண் தொழில் முனைவோர் (Entrepreneurs)' : lang === 'hi' ? 'महिला उद्यमी मंच (Entrepreneurs)' : 'Women Entrepreneurs Showcase',
+      subtitle:
+        lang === 'ta'
+          ? 'உங்கள் தயாரிப்புகளை விளம்பரப்படுத்தவும், மொத்த விற்பனையாளர் மற்றும் அரசு வழிகாட்டல்கள்.'
+          : lang === 'hi'
+          ? 'अपने उद्यम का प्रचार करें, थोक सप्लायर खोजें और बिजनेस सपोर्ट पाएं।'
+          : 'Showcase your registered business, find wholesale raw material suppliers, and connect with SHG support.',
+      icon: <Sparkles className="w-6 h-6 text-rose-600" />,
+      color: 'from-rose-50 to-amber-50 border-rose-200 text-rose-950',
+      badge: lang === 'ta' ? 'தொழில் அரங்கம்' : lang === 'hi' ? 'बिजनेस शोकेस' : 'Business Hub',
+      badgeColor: 'bg-rose-100 text-rose-800 font-bold',
+    },
+    {
+      tab: 'payments' as ActiveTab,
+      title: lang === 'ta' ? 'கட்டணம் & கமிஷன் மையம் (Payments)' : lang === 'hi' ? 'भुगतान व कमीशन हब (Payments)' : 'UPI Payments & Platform Finance',
+      subtitle:
+        lang === 'ta'
+          ? '10% வெளிப்படையான SHERISE கமிஷன், ஆசிரியையின் 90% நிகர பங்கு, UPI சாண்ட்பாக்ஸ் & ரசீதுகள்.'
+          : lang === 'hi'
+          ? '10% पारदर्शी कमीशन, शिक्षिका का 90% हिस्सा, यूपीआई सैंडबॉक्स और रसीदें।'
+          : 'UPI payment simulation, 10% platform fee transparency (₹100 fee / ₹900 teacher share per ₹1,000), payouts & receipts.',
+      icon: <CreditCard className="w-6 h-6 text-blue-600" />,
+      color: 'from-blue-50 to-indigo-50 border-blue-200 text-blue-950',
+      badge: lang === 'ta' ? '10% கமிஷன் கணக்கீடு' : lang === 'hi' ? '10% कमीशन' : '10% Platform Fee',
+      badgeColor: 'bg-blue-100 text-blue-800 font-bold',
     },
     {
       tab: 'schemes' as ActiveTab,

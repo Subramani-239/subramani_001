@@ -16,13 +16,19 @@ import { PrivacySettingsView } from './components/PrivacySettingsView';
 import { EmergencyHelpView } from './components/EmergencyHelpView';
 import { ChatCallView } from './components/ChatCallView';
 import { SkillsLearningView } from './components/SkillsLearningView';
+import { FindTeachersView } from './components/FindTeachersView';
+import { EarnView } from './components/EarnView';
+import { EntrepreneursView } from './components/EntrepreneursView';
+import { PaymentsView } from './components/PaymentsView';
 import { ProfileView } from './components/ProfileView';
 import { QuickShieldModal } from './components/QuickShieldModal';
 import { FreeDeploymentGuideModal } from './components/FreeDeploymentGuideModal';
 import { BrandLogo } from './components/BrandLogo';
-import { Language, ActiveTab, PrivacyConfig, UserProfile } from './types';
+import { Language, ActiveTab, PrivacyConfig, UserProfile, CourseBooking, LearningCourse, PayoutRecord } from './types';
 import { sampleDemoProfiles } from './data/demoProfilesData';
 import { translations } from './data/translations';
+import { learningCoursesData } from './data/skillsLearningData';
+import { calculateCommission } from './utils/learningBusinessLogic';
 import {
   registerSpeechListener,
   stopSpeaking,
@@ -83,6 +89,92 @@ export default function App() {
     } catch {
       // ignore
     }
+  };
+
+  // Courses State
+  const [courses, setCourses] = useState<LearningCourse[]>(() => {
+    try {
+      const saved = localStorage.getItem('sherise_learning_courses');
+      if (saved) return JSON.parse(saved);
+    } catch {
+      // ignore
+    }
+    return learningCoursesData;
+  });
+
+  // Bookings & Transactions State (10% platform commission compliant)
+  const [bookings, setBookings] = useState<CourseBooking[]>(() => {
+    try {
+      const saved = localStorage.getItem('sherise_course_bookings');
+      if (saved) return JSON.parse(saved);
+    } catch {
+      // ignore
+    }
+    const sampleComm = calculateCommission(1000);
+    return [
+      {
+        id: 'BK-1001',
+        courseId: 'course-tailoring-basics',
+        courseTitle: 'Beginner Tailoring: Measurements, Cutting & Blouse Stitching',
+        learnerId: 'usr-demo-01',
+        learnerName: 'Kamala Devi',
+        bookingDate: new Date(Date.now() - 3600000).toISOString(),
+        batchSchedule: 'Batch starts: Next Monday (10:30 AM - 11:30 AM)',
+        classFormat: 'online',
+        venueOrLink: 'Salem Women Community Center & Live Google Meet',
+        status: 'confirmed',
+        courseFee: 1000,
+        platformFee: sampleComm.platformFee,
+        teacherEarnings: sampleComm.teacherEarnings,
+        paymentMethod: 'demo_upi',
+        demoUpiTxnId: 'UPI-TXN-902847291084',
+        escrowStatus: 'held_in_escrow',
+      },
+      {
+        id: 'BK-1002',
+        courseId: 'course-millet-snacks',
+        courseTitle: 'Millet & Traditional Sweets Catering Business',
+        learnerId: 'usr-demo-02',
+        learnerName: 'Meenakshi Sundaram',
+        bookingDate: new Date(Date.now() - 86400000 * 2).toISOString(),
+        batchSchedule: 'Batch starts: Wednesday (3:00 PM - 4:30 PM)',
+        classFormat: 'in_person',
+        venueOrLink: 'Madurai Self Help Group Kitchen',
+        status: 'completed',
+        courseFee: 800,
+        platformFee: 80,
+        teacherEarnings: 720,
+        paymentMethod: 'demo_upi',
+        demoUpiTxnId: 'UPI-TXN-817263549102',
+        escrowStatus: 'released_to_teacher',
+      },
+    ];
+  });
+
+  const handleBookCourse = (newBooking: CourseBooking) => {
+    setBookings((prev) => {
+      const updated = [newBooking, ...prev];
+      try {
+        localStorage.setItem('sherise_course_bookings', JSON.stringify(updated));
+      } catch {
+        // ignore
+      }
+      return updated;
+    });
+  };
+
+  const handleRefundBooking = (bookingId: string) => {
+    setBookings((prev) => {
+      const updated = prev.map((b) =>
+        b.id === bookingId ? { ...b, status: 'refunded' as const } : b
+      );
+      try {
+        localStorage.setItem('sherise_course_bookings', JSON.stringify(updated));
+      } catch {
+        // ignore
+      }
+      return updated;
+    });
   };
 
   // 3. Active View Tab & Navigation Stack
@@ -250,6 +342,14 @@ export default function App() {
       let msg = '';
       if (activeTab === 'dashboard') {
         msg = `${t.dashboard.welcomeTitle}. ${t.dashboard.welcomeSub}. ${t.dashboard.todayFocus}`;
+      } else if (activeTab === 'find-teachers') {
+        msg = lang === 'ta' ? 'சரிபார்க்கப்பட்ட ஆசிரியைகள் மற்றும் வழிகாட்டிகளை கண்டறியும் பகுதி' : 'Find verified teachers and instructors directory';
+      } else if (activeTab === 'earn') {
+        msg = lang === 'ta' ? 'தையல் ஒப்பந்தங்கள், வீட்டு உணவு மற்றும் வேலைவாய்ப்பு பகுதி' : 'Earn and employment opportunities';
+      } else if (activeTab === 'entrepreneurs') {
+        msg = lang === 'ta' ? 'பெண் தொழில் முனைவோர் அரங்கம் மற்றும் மொத்த விற்பனையாளர்கள்' : 'Women entrepreneurs showcase and raw materials';
+      } else if (activeTab === 'payments') {
+        msg = lang === 'ta' ? 'கட்டணம், 10 சதவீத SHERISE கமிஷன் மற்றும் ஆசிரியையின் 90 சதவீத வருவாய்' : 'UPI Payments, 10 percent commission, and teacher payouts';
       } else if (activeTab === 'emergency-help') {
         msg = `${t.emergency.title}. ${t.emergency.sub}`;
       } else if (activeTab === 'chat-call') {
@@ -282,6 +382,14 @@ export default function App() {
     switch (tab) {
       case 'dashboard':
         return currentLang === 'hi' ? 'मुख्य पृष्ठ (होम)' : currentLang === 'ta' ? 'முகப்பு' : 'Home Dashboard';
+      case 'find-teachers':
+        return t.nav.findTeachers || 'Find Teachers';
+      case 'earn':
+        return t.nav.earn || 'Earn';
+      case 'entrepreneurs':
+        return t.nav.entrepreneurs || 'Entrepreneurs';
+      case 'payments':
+        return t.nav.payments || 'Payments';
       case 'emergency-help':
         return currentLang === 'hi' ? 'आपातकालीन सहायता (112)' : currentLang === 'ta' ? 'அவசர உதவி 112' : 'Emergency Help 112';
       case 'schemes':
@@ -459,6 +567,51 @@ export default function App() {
           />
         )}
 
+        {activeTab === 'find-teachers' && (
+          <FindTeachersView
+            lang={lang}
+            userProfile={userProfile}
+            courses={courses}
+            bookings={bookings}
+            onOpenChatWithTeacher={handleOpenChatWithTrainer}
+            onBookCourse={handleBookCourse}
+            onNavigateToCourse={() => handleNavigate('skills-learning')}
+          />
+        )}
+
+        {activeTab === 'earn' && (
+          <EarnView
+            lang={lang}
+            userProfile={userProfile}
+            onNavigateToBusinessGenerator={() => handleNavigate('business-generator')}
+            onNavigateToSchemes={() => handleNavigate('schemes')}
+            onOpenChat={handleOpenChatWithTrainer}
+          />
+        )}
+
+        {activeTab === 'entrepreneurs' && (
+          <EntrepreneursView
+            lang={lang}
+            userProfile={userProfile}
+            onOpenRawMaterialFinder={() => handleNavigate('skills')}
+            onOpenBusinessGenerator={() => handleNavigate('business-generator')}
+            onNavigateToSchemes={() => handleNavigate('schemes')}
+            onOpenChat={handleOpenChatWithTrainer}
+          />
+        )}
+
+        {activeTab === 'payments' && (
+          <PaymentsView
+            lang={lang}
+            userProfile={userProfile}
+            bookings={bookings}
+            onRefundBooking={handleRefundBooking}
+            onInitiatePayout={() => {
+              // Simulated payout processing in Sandbox
+            }}
+          />
+        )}
+
         {activeTab === 'schemes' && (
           <SchemesView
             lang={lang}
@@ -529,66 +682,76 @@ export default function App() {
       {/* Mobile Sticky Bottom Action Bar for Quick Rural Access */}
       <nav
         aria-label="Mobile Bottom Bar"
-        className="lg:hidden sticky bottom-0 z-30 bg-white/95 backdrop-blur-md border-t border-rose-200 px-2 py-2 flex items-center justify-around text-[10px] font-bold text-stone-600 shadow-lg"
+        className="lg:hidden sticky bottom-0 z-30 bg-white/95 backdrop-blur-md border-t border-rose-200 px-1.5 py-1.5 flex items-center justify-around text-[10px] font-bold text-stone-600 shadow-lg overflow-x-auto no-scrollbar"
       >
         <button
           onClick={() => handleNavigate('dashboard')}
-          className={`flex flex-col items-center gap-1 p-1 rounded-lg ${
-            activeTab === 'dashboard' ? 'text-rose-600' : 'hover:text-rose-600'
+          className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg ${
+            activeTab === 'dashboard' ? 'text-rose-600 font-extrabold' : 'hover:text-rose-600'
           }`}
         >
-          <span className="text-base">🏠</span>
-          <span>{t.nav.dashboard}</span>
-        </button>
-
-        <button
-          onClick={() => handleNavigate('emergency-help')}
-          className={`flex flex-col items-center gap-1 p-1 rounded-lg text-rose-700 font-extrabold ${
-            activeTab === 'emergency-help' ? 'bg-rose-100 rounded-xl' : ''
-          }`}
-        >
-          <span className="text-base animate-pulse">🚨</span>
-          <span>{lang === 'ta' ? 'அவசரம்' : lang === 'hi' ? 'आपातकाल' : 'SOS'}</span>
-        </button>
-
-        <button
-          onClick={() => handleNavigate('schemes')}
-          className={`flex flex-col items-center gap-1 p-1 rounded-lg ${
-            activeTab === 'schemes' ? 'text-rose-600' : 'hover:text-rose-600'
-          }`}
-        >
-          <span className="text-base">📜</span>
-          <span>{t.nav.schemes}</span>
+          <span className="text-sm">🏠</span>
+          <span className="truncate">{t.nav.home || 'Home'}</span>
         </button>
 
         <button
           onClick={() => handleNavigate('skills-learning')}
-          className={`flex flex-col items-center gap-1 p-1 rounded-lg ${
-            activeTab === 'skills-learning' ? 'text-rose-600' : 'hover:text-rose-600'
+          className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg ${
+            activeTab === 'skills-learning' ? 'text-rose-600 font-extrabold' : 'hover:text-rose-600'
           }`}
         >
-          <span className="text-base">🎓</span>
-          <span>{lang === 'ta' ? 'கற்றல்' : lang === 'hi' ? 'सीखें' : 'Learn'}</span>
+          <span className="text-sm">🎓</span>
+          <span className="truncate">{t.nav.learn || 'Learn'}</span>
         </button>
 
         <button
-          onClick={() => handleNavigate('chat-call')}
-          className={`flex flex-col items-center gap-1 p-1 rounded-lg ${
-            activeTab === 'chat-call' ? 'text-rose-600' : 'hover:text-rose-600'
+          onClick={() => handleNavigate('find-teachers')}
+          className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg ${
+            activeTab === 'find-teachers' ? 'text-rose-600 font-extrabold' : 'hover:text-rose-600'
           }`}
         >
-          <span className="text-base">💬</span>
-          <span>{lang === 'ta' ? 'உரையாடல்' : lang === 'hi' ? 'चैट' : 'Chat'}</span>
+          <span className="text-sm">👩‍🏫</span>
+          <span className="truncate">{lang === 'ta' ? 'ஆசிரியைகள்' : 'Teachers'}</span>
+        </button>
+
+        <button
+          onClick={() => handleNavigate('earn')}
+          className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg ${
+            activeTab === 'earn' ? 'text-rose-600 font-extrabold' : 'hover:text-rose-600'
+          }`}
+        >
+          <span className="text-sm">💼</span>
+          <span className="truncate">{t.nav.earn || 'Earn'}</span>
+        </button>
+
+        <button
+          onClick={() => handleNavigate('payments')}
+          className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg ${
+            activeTab === 'payments' ? 'text-rose-600 font-extrabold' : 'hover:text-rose-600'
+          }`}
+        >
+          <span className="text-sm">💳</span>
+          <span className="truncate">{t.nav.payments || 'Pay'}</span>
+        </button>
+
+        <button
+          onClick={() => handleNavigate('schemes')}
+          className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg ${
+            activeTab === 'schemes' ? 'text-rose-600 font-extrabold' : 'hover:text-rose-600'
+          }`}
+        >
+          <span className="text-sm">📜</span>
+          <span className="truncate">{lang === 'ta' ? 'திட்டங்கள்' : 'Schemes'}</span>
         </button>
 
         <button
           onClick={() => handleNavigate('profile')}
-          className={`flex flex-col items-center gap-1 p-1 rounded-lg ${
-            activeTab === 'profile' ? 'text-rose-600' : 'hover:text-rose-600'
+          className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-lg ${
+            activeTab === 'profile' ? 'text-rose-600 font-extrabold' : 'hover:text-rose-600'
           }`}
         >
-          <span className="text-base">👤</span>
-          <span>{lang === 'ta' ? 'சுயவிவரம்' : lang === 'hi' ? 'प्रोफ़ाइल' : 'Profile'}</span>
+          <span className="text-sm">👤</span>
+          <span className="truncate">{t.nav.profile || 'Profile'}</span>
         </button>
       </nav>
 

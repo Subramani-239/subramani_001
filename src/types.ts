@@ -5,18 +5,27 @@
 
 export type Language = 'ta' | 'en' | 'hi';
 
+export type PlatformRole = 'learner' | 'teacher' | 'entrepreneur' | 'admin';
+
 export type ActiveTab = 
-  | 'dashboard'
-  | 'schemes'
-  | 'education'
-  | 'skills'
+  | 'dashboard'          // Home
+  | 'learn'              // Learn (Courses, Classes, Certificates)
+  | 'find-teachers'      // Find Teachers
+  | 'earn'               // Earn (Jobs, Self-Employment, Vocational Income)
+  | 'entrepreneurs'      // Entrepreneurs Hub
+  | 'schemes'            // Government Schemes
+  | 'payments'           // UPI Payments & Financial Reports
+  | 'profile'            // Profile & Roles
+  // Secondary / Preserved feature views:
   | 'skills-learning'
+  | 'skills'
+  | 'education'
   | 'business-generator'
   | 'budget-calculator'
   | 'emergency-help'
   | 'chat-call'
   | 'community'
-  | 'profile'
+  | 'admin'
   | 'privacy'
   | 'deployment-guide';
 
@@ -26,6 +35,7 @@ export interface UserProfile {
   name: string;
   isDemo: boolean;
   preferredLanguage: Language;
+  platformRole?: PlatformRole; // learner, teacher, entrepreneur, admin
   role: 'homemaker' | 'dropout' | 'rural_artisan' | 'entrepreneur' | 'student';
   location: string;
   skills: string[];
@@ -39,6 +49,7 @@ export interface UserProfile {
   teachingSkills?: string[];
   joinedDate: string;
 }
+
 
 export interface Scheme {
   id: string;
@@ -502,6 +513,31 @@ export interface LearningLesson {
   };
 }
 
+export type TeacherVerificationStatus = 'verified' | 'pending' | 'unverified';
+export type TeacherBadgeType = 'government_certified' | 'skill_master' | 'peer_verified';
+
+export interface TeacherProfile {
+  id: string;
+  name: string;
+  bio: string;
+  bioTa?: string;
+  bioHi?: string;
+  experienceYears: number;
+  skills: string[];
+  location: string;
+  verificationStatus: TeacherVerificationStatus;
+  verificationBadge?: TeacherBadgeType;
+  verificationNotes?: string;
+  phoneShared?: boolean;
+  phoneNumber?: string;
+  rating: number;
+  reviewCount: number;
+  totalEarningsEst: number;
+}
+
+export type CourseApprovalStatus = 'approved' | 'pending_approval' | 'rejected';
+export type CourseClassFormat = 'online' | 'in_person' | 'both';
+
 export interface LearningCourse {
   id: string;
   title: string;
@@ -509,7 +545,7 @@ export interface LearningCourse {
   titleHi: string;
   category: 'tailoring' | 'cooking' | 'handicrafts' | 'digital' | 'english' | 'beauty' | 'bookkeeping' | 'business';
   level: 'beginner' | 'intermediate';
-  format: 'online' | 'in_person' | 'both';
+  format: CourseClassFormat;
   languages: ('ta' | 'en' | 'hi')[];
   duration: string;
   durationTa: string;
@@ -523,11 +559,156 @@ export interface LearningCourse {
   earningConnectionTa: string;
   earningConnectionHi: string;
   lessons: LearningLesson[];
+  // Learning & Earning Platform Enhancements
+  fee: number; // in INR (0 for free)
+  approvalStatus: CourseApprovalStatus;
+  approvalFeedback?: string;
+  venueOrLink?: string;
+  batchSchedule?: string;
+  availableSeats: number;
+  maxSeats: number;
+  cancellationPolicy: string;
+  cancellationPolicyTa?: string;
+  cancellationPolicyHi?: string;
+  teacher?: TeacherProfile;
+  practicalProjectPrompt?: string;
+  practicalProjectPromptTa?: string;
+  practicalProjectPromptHi?: string;
+  careerOutcomes?: string[];
+  careerOutcomesTa?: string[];
+  careerOutcomesHi?: string[];
 }
 
 export interface UserCourseProgress {
   courseId: string;
   completedLessonIds: string[];
   completedAt?: string;
+  quizPassed?: boolean;
+  practicalSubmitted?: boolean;
+  practicalSubmissionNotes?: string;
+  certificateId?: string;
 }
+
+export type BookingStatus = 'confirmed' | 'in_progress' | 'completed' | 'cancelled' | 'refunded' | 'disputed';
+export type EscrowStatus = 'held_in_escrow' | 'released_to_teacher' | 'refunded_to_learner';
+
+export interface CourseBooking {
+  id: string; // e.g. "BK-90218"
+  courseId: string;
+  courseTitle: string;
+  learnerId: string;
+  learnerName: string;
+  bookingDate: string;
+  batchSchedule: string;
+  classFormat: 'online' | 'in_person';
+  venueOrLink: string;
+  status: BookingStatus;
+  courseFee: number;
+  platformFee: number; // 5%
+  teacherEarnings: number; // 95%
+  paymentMethod: 'demo_upi';
+  demoUpiTxnId: string;
+  escrowStatus: EscrowStatus;
+  cancellationReason?: string;
+  refundAmount?: number;
+  disputeId?: string;
+}
+
+export type DisputeReason =
+  | 'fake_teacher'
+  | 'misleading_curriculum'
+  | 'class_cancelled_no_notice'
+  | 'payment_issue'
+  | 'poor_quality';
+
+export interface DisputeReport {
+  id: string; // e.g. "DISP-7812"
+  bookingId?: string;
+  courseId: string;
+  courseTitle: string;
+  learnerId: string;
+  learnerName: string;
+  teacherId?: string;
+  teacherName: string;
+  reason: DisputeReason;
+  description: string;
+  evidenceNote: string;
+  submittedAt: string;
+  status: 'under_investigation' | 'refund_approved' | 'dismissed';
+  adminResolutionNote?: string;
+  resolvedAt?: string;
+  refundIssued?: boolean;
+  refundAmount?: number;
+}
+
+export interface SkillCertificate {
+  certificateId: string; // e.g. "SHERISE-CERT-2026-9812"
+  courseId: string;
+  courseTitle: string;
+  learnerName: string;
+  learnerId: string;
+  teacherName: string;
+  teacherVerificationBadge?: TeacherBadgeType;
+  issuedDate: string;
+  gradeScore: string;
+  practicalProjectSummary?: string;
+  verificationHash: string;
+  skillsCertified: string[];
+}
+
+export interface PayoutRecord {
+  id: string; // e.g. "PAYOUT-7821"
+  teacherId: string;
+  teacherName: string;
+  amount: number;
+  method: 'upi' | 'imps' | 'neft';
+  destinationVpaOrAccount: string;
+  status: 'processing' | 'settled' | 'failed';
+  initiatedAt: string;
+  settledAt?: string;
+  providerReferenceId: string;
+  notes: string;
+}
+
+export interface JobListing {
+  id: string;
+  title: string;
+  titleTa: string;
+  titleHi?: string;
+  type: 'job' | 'self_employment' | 'freelance_order' | 'micro_task';
+  category: 'tailoring' | 'cooking_catering' | 'handicrafts' | 'digital_esevai' | 'beauty' | 'retail';
+  pay: string;
+  payTa: string;
+  payHi?: string;
+  location: string;
+  locationTa?: string;
+  locationHi?: string;
+  timing: string;
+  timingTa?: string;
+  timingHi?: string;
+  verifiedBySherise: boolean;
+  requirements: string[];
+  requirementsTa?: string[];
+  requirementsHi?: string[];
+  contactMethod: string;
+  postedDate: string;
+}
+
+export interface EntrepreneurListing {
+  id: string;
+  businessName: string;
+  ownerName: string;
+  category: string;
+  description: string;
+  location: string;
+  servicesOrProducts: string[];
+  priceRange: string;
+  verifiedStatus: 'verified' | 'pending';
+  contactPreference: 'in_app' | 'phone';
+  phone?: string;
+  rating?: number;
+  reviewCount?: number;
+}
+
+
 

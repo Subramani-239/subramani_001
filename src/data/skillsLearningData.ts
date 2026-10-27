@@ -18,6 +18,41 @@ export const learningCoursesData: LearningCourse[] = [
     duration: '2 Weeks (1 hr/day)',
     durationTa: '2 வாரங்கள் (தினமும் 1 மணி நேரம்)',
     durationHi: '2 सप्ताह (प्रतिदिन 1 घंटा)',
+    fee: 450,
+    approvalStatus: 'approved',
+    availableSeats: 6,
+    maxSeats: 15,
+    venueOrLink: 'Salem Women Community Center & Live Google Meet',
+    batchSchedule: 'Batch starts: Next Monday (10:30 AM - 11:30 AM)',
+    cancellationPolicy: '100% full refund if cancelled 24 hours before first class. Protected by SHERISE 5-day Escrow Guarantee.',
+    cancellationPolicyTa: 'முதல் வகுப்பிற்கு 24 மணி நேரத்திற்கு முன் ரத்து செய்தால் 100% முழு பணம் திரும்ப வழங்கப்படும்.',
+    cancellationPolicyHi: 'पहली कक्षा से 24 घंटे पहले रद्द करने पर 100% पूरा रिफंड।',
+    teacher: {
+      id: 'trn-selvi',
+      name: 'Selvi Master (Salem)',
+      bio: 'Government-certified Master Tailor with 14 years of teaching experience. Trained over 450 self-employed women.',
+      bioTa: '14 வருட அனுபவமுள்ள அரசு சான்றிதழ் பெற்ற முதன்மை தையல் ஆசிரியை. 450+ பெண்களுக்கு சுயதொழில் பயிற்சி அளித்துள்ளார்.',
+      bioHi: '14 वर्षों के अनुभव वाली सरकार से प्रमाणित मास्टर टेलर।',
+      experienceYears: 14,
+      skills: ['Blouse Cutting', 'Aari Work', 'Chudidar Stitching'],
+      location: 'Salem, Tamil Nadu',
+      verificationStatus: 'verified',
+      verificationBadge: 'government_certified',
+      verificationNotes: 'Aadhaar, Skill Certificate & Physical Center Verified',
+      phoneShared: true,
+      phoneNumber: '+91 94432 00000',
+      rating: 4.9,
+      reviewCount: 88,
+      totalEarningsEst: 39600,
+    },
+    practicalProjectPrompt: 'Stitch one sample neckline piping and 4-dart front piece on practice cloth and present for review.',
+    practicalProjectPromptTa: 'பயிற்சித் துணியில் ஒரு கழுத்துப் பைப்பிங் மற்றும் 4-டாட் முன் பகுதியைத் தைத்து ஆய்வுக்காக சமர்ப்பிக்கவும்.',
+    practicalProjectPromptHi: 'अभ्यास कपड़े पर गले की पाइपिंग और 4-डार्ट का अगला हिस्सा सिलकर समीक्षा के लिए प्रस्तुत करें।',
+    careerOutcomes: [
+      'Start home blouse & chudidar stitching orders (earning ₹150 - ₹350 per piece)',
+      'Partner with local bridal boutiques for finishing & alterations',
+      'Take bulk orders for school uniforms and festive garments',
+    ],
     description: 'Master body measurement, tracing paper patterns, straight stitch practice, neckline piping, and stitching a custom 4-dart blouse.',
     descriptionTa: 'அளவு நாடாவால் உடலளவு எடுத்தல், பேப்பர் பேட்டர்ன் வெட்டுதல், நேர்கோட்டு தையல் பயிற்சி மற்றும் ஜாக்கெட் தைக்கும் முழு முறை.',
     descriptionHi: 'नाप लेने का सही तरीका, पेपर कटिंग, सीधी सिलाई अभ्यास, गले की पाइपिंग और संपूर्ण ब्लाउज सिलाई।',
@@ -119,6 +154,38 @@ export const learningCoursesData: LearningCourse[] = [
     duration: '1 Week (1 hr/day)',
     durationTa: '1 வாரம் (தினமும் 1 மணி நேரம்)',
     durationHi: '1 सप्ताह (प्रतिदिन 1 घंटा)',
+    fee: 350,
+    approvalStatus: 'approved',
+    availableSeats: 8,
+    maxSeats: 20,
+    venueOrLink: 'Madurai SHG Kitchen Hub & Video Demonstration',
+    batchSchedule: 'Batch starts: This Saturday (3:00 PM - 4:00 PM)',
+    cancellationPolicy: 'Full refund available up to 24 hours before workshop. FSSAI & Quality certified guidelines included.',
+    cancellationPolicyTa: 'வகுப்பிற்கு 24 மணி நேரம் முன்பு வரை முழு பணம் திரும்பப் பெறலாம்.',
+    cancellationPolicyHi: 'कक्षा से 24 घंटे पहले तक पूरा रिफंड।',
+    teacher: {
+      id: 'trn-lakshmi',
+      name: 'Lakshmi Amma (Madurai)',
+      bio: 'Award-winning traditional cook and SHG leader. Runs a verified homemade spice micro-enterprise supplying 300+ households.',
+      bioTa: 'விருது பெற்ற பாரம்பரிய சமையல் கலைஞர் மற்றும் மகளிர் குழு தலைவர். 300+ வீடுகளுக்கு மசாலா பொடி வழங்கி வருகிறார்.',
+      bioHi: 'पारंपरिक भोजन विशेषज्ञ और स्वयं सहायता समूह की प्रमुख।',
+      experienceYears: 18,
+      skills: ['Sambar Podi', 'Idli Podi', 'Garam Masala'],
+      location: 'Madurai, Tamil Nadu',
+      verificationStatus: 'verified',
+      verificationBadge: 'skill_master',
+      verificationNotes: 'FSSAI Registration & Peer SHG Verification Complete',
+      phoneShared: true,
+      phoneNumber: '+91 98421 00000',
+      rating: 4.95,
+      reviewCount: 112,
+      totalEarningsEst: 42000,
+    },
+    practicalProjectPrompt: 'Prepare a 100g test batch of roasted coriander-cumin sambar powder, sieve finely, and seal in an airtight pouch.',
+    careerOutcomes: [
+      'Sell 250g masala pouches to apartment communities and neighbourhood stores',
+      'Supply fresh sambar and rasam powder to local caterers and messes',
+    ],
     description: 'Learn standard spice roasting ratios, sun-drying spices, aromatic coriander-chili balance, and food safety standards.',
     descriptionTa: 'மசாலா வறுக்கும் பக்குவம், வெயிலில் உலர்த்துதல், வாசனை மாறாமல் அரைக்கும் முறை மற்றும் நீண்ட நாள் கெடாமல் பேக் செய்யும் வழிகள்.',
     descriptionHi: 'मसालों को सही आंच पर भूनने का अनुपात, सुखाने की विधि और खाद्य सुरक्षा नियमों के साथ पैकिंग।',
@@ -150,25 +217,81 @@ export const learningCoursesData: LearningCourse[] = [
             textTa: 'சீரகம், மிளகு, வெந்தயத்தை தனித்தனியாக வாசனை வரும் வரை மிதமான தீயில் வறுக்கவும்.',
             textHi: 'जीरा, काली मिर्च और मेथी को अलग-अलग धीमी आंच पर खुशबू आने तक भूनें।'
           }
-        ]
+        ],
+        quizQuestion: {
+          question: 'Why should fenugreek (methi) seeds be roasted lightly and not charred black?',
+          questionTa: 'வெந்தயத்தை கருப்பாக கருக விடாமல் மிதமாக வறுக்க வேண்டும் ஏன்?',
+          questionHi: 'मेथी के दानों को जलने से बचाकर हल्का ही क्यों भूनना चाहिए?',
+          options: [
+            'Charred fenugreek makes the entire spice powder bitter and unpalatable',
+            'It changes the color to blue',
+            'It creates too much smoke'
+          ],
+          optionsTa: [
+            'கருகினால் மசாலா முழுவதும் கசப்பு ஏறிவிடும்',
+            'நீல நிறமாக மாறும்',
+            'அதிக புகை வரும்'
+          ],
+          optionsHi: [
+            'जलने से पूरे मसाले में कड़वापन आ जाता है',
+            'रंग नीला हो जाता है',
+            'धुआं अधिक होता है'
+          ],
+          correctIndex: 0,
+          explanation: 'Over-roasting fenugreek releases bitter oils that spoil the aromatic flavor of sambar powder.',
+          explanationTa: 'வெந்தயம் அதிகம் கருகினால் கசப்பு எண்ணெய் வெளியாகி சாம்பார் பொடியின் சுவையை கெடுத்துவிடும்.',
+          explanationHi: 'मेथी ज्यादा भुनने पर कड़वी हो जाती है जिससे मसाले का स्वाद खराब हो जाता है।'
+        }
       }
     ]
   },
   {
     id: 'course-digital-literacy',
-    title: 'Smartphone & Digital Safety for Women (UPI, WhatsApp Business, e-Sevai)',
-    titleTa: 'பெண்களுக்கான ஸ்மார்ட்போன் பயிற்சி & டிஜிட்டல் பாதுகாப்பு (UPI, வாட்ஸ்அப், இ-சேவை)',
-    titleHi: 'महिलाओं के लिए स्मार्टफोन एवं डिजिटल साक्षरता (UPI, व्हाट्सएप बिजनेस)',
+    title: 'Computer & Smartphone Skills for Women Micro-Businesses',
+    titleTa: 'மகளிர் சிறுதொழில்களுக்கான கணினி & ஸ்மார்ட்போன் பயிற்சி (UPI, டிஜிட்டல் பில்லிங்)',
+    titleHi: 'महिला सूक्ष्म व्यवसायों के लिए कंप्यूटर और स्मार्टफोन कौशल',
     category: 'digital',
     level: 'beginner',
     format: 'online',
     languages: ['ta', 'en', 'hi'],
-    duration: '3 Days (30 mins/day)',
-    durationTa: '3 நாட்கள் (தினமும் 30 நிமிடம்)',
-    durationHi: '3 दिन (प्रतिदिन 30 मिनट)',
+    duration: '1 Week (45 mins/day)',
+    durationTa: '1 வாரம் (தினமும் 45 நிமிடம்)',
+    durationHi: '1 सप्ताह (प्रतिदिन 45 मिनट)',
+    fee: 300,
+    approvalStatus: 'approved',
+    availableSeats: 12,
+    maxSeats: 25,
+    venueOrLink: 'Online Interactive Google Meet with Screen Sharing',
+    batchSchedule: 'Daily 7:00 PM - 7:45 PM (Recordings available)',
+    cancellationPolicy: '100% full refund before batch begins. 24/7 student chat support included.',
+    cancellationPolicyTa: 'வகுப்பு தொடங்கும் முன் ரத்து செய்தால் 100% முழு பணம் திரும்பக் கிடைக்கும்.',
+    cancellationPolicyHi: 'कक्षा शुरू होने से पहले रद्द करने पर 100% रिफंड।',
+    teacher: {
+      id: 'trn-revathi',
+      name: 'Dr. Revathi Raman',
+      bio: 'Digital empowerment educator and community mentor. Has guided 1,200+ rural women in online banking, safety, and digital marketing.',
+      bioTa: 'டிஜிட்டல் அதிகாரமளிப்பு கல்வியாளர். 1,200+ பெண்களுக்கு இணைய பரிவர்த்தனை மற்றும் டிஜிட்டல் விழிப்புணர்வு வழங்கியுள்ளார்.',
+      bioHi: 'डिजिटल सशक्तिकरण ट्रेनर।',
+      experienceYears: 10,
+      skills: ['UPI Safety', 'WhatsApp Business Catalogs', 'Canva Posters'],
+      location: 'Chennai & Puducherry',
+      verificationStatus: 'verified',
+      verificationBadge: 'government_certified',
+      verificationNotes: 'Certified Digital Literacy Instructor & Aadhaar Verified',
+      phoneShared: true,
+      phoneNumber: '+91 94444 11111',
+      rating: 4.9,
+      reviewCount: 160,
+      totalEarningsEst: 54000,
+    },
+    practicalProjectPrompt: 'Create a WhatsApp Business catalog item or digital bill receipt with itemized pricing and payment QR.',
+    careerOutcomes: [
+      'Operate an e-Sevai / digital service kiosk helping neighbours apply for certificates',
+      'Set up WhatsApp Business product catalogs for local sellers for a service fee',
+    ],
     description: 'Practical smartphone training: Send voice notes, make safe payments, create product catalogs on WhatsApp, and spot telephone scams.',
     descriptionTa: 'ஸ்மார்ட்போனை தைரியமாக பயன்படுத்துங்கள்: வாய்ஸ் மெசேஜ் அனுப்புதல், கூகுள் பே பாதுகாப்பாக பயன்படுத்துதல் மற்றும் மோசடிகளை தவிர்த்தல்.',
-    descriptionHi: 'स्मार्टफोन का सुरक्षित उपयोग: आवाज संदेश भेजना, सुरक्षित यूपीआई भुगतान और ऑनलाइन धोखाधड़ी से बचना।',
+    descriptionHi: 'सुरक्षित डिजिटल भुगतान, व्हाट्सएप बिजनेस कैटलॉग, पोस्टर डिजाइन और ऑनलाइन धोखाधड़ी से बचाव की संपूर्ण जानकारी।',
     trainerName: 'Dr. Revathi Raman',
     trainerContactId: 'contact-mentor-1',
     earningConnection: 'Helps women market products directly on WhatsApp, avoid bank travel costs, and earn facilitation fees.',
@@ -197,7 +320,31 @@ export const learningCoursesData: LearningCourse[] = [
             textTa: 'பணம் சிக்கினால் கூகுளில் போன் நம்பர் தேடாதீர்கள்; செயலிக்குள் உள்ள Dispute பொத்தானை அழுத்தவும்.',
             textHi: 'गूगल से अनजान कस्टमर केयर नंबर न निकालें; ऐप के अंदर ही सहायता विकल्प चुनें।'
           }
-        ]
+        ],
+        quizQuestion: {
+          question: 'A stranger calls claiming they are sending you ₹1,000 and asks you to enter your UPI PIN. What should you do?',
+          questionTa: 'அந்நியர் ஒருவர் உங்களுக்கு ₹1,000 அனுப்புவதாகக் கூறி உங்கள் UPI PIN-ஐ உள்ளிடச் சொல்கிறார். நீங்கள் என்ன செய்ய வேண்டும்?',
+          questionHi: 'एक अनजान व्यक्ति आपको ₹1,000 भेजने का दावा करता है और आपसे यूपीआई पिन डालने को कहता है। आपको क्या करना चाहिए?',
+          options: [
+            'Immediately decline and hang up — PIN is NEVER required to receive money!',
+            'Enter the PIN quickly to get the money',
+            'Share the PIN with a friend first'
+          ],
+          optionsTa: [
+            'உடனே இணைப்பைத் துண்டிக்கவும் — பணம் பெற ஒருபோதும் PIN தேவையில்லை!',
+            'பணம் வர உடனே PIN-ஐ போடவும்',
+            'நண்பரிடம் PIN-ஐ கேட்கவும்'
+          ],
+          optionsHi: [
+            'तुरंत मना करें और कॉल काट दें — पैसे प्राप्त करने के लिए कभी पिन की आवश्यकता नहीं होती!',
+            'पैसे पाने के लिए पिन डाल दें',
+            'मित्र से सलाह लें'
+          ],
+          correctIndex: 0,
+          explanation: 'Entering your UPI PIN authorizes money to leave your bank account, never into it.',
+          explanationTa: 'UPI PIN போட்டால் உங்கள் கணக்கிலிருந்து பணம் எடுக்கப்படும், பணம் வராது.',
+          explanationHi: 'यूपीआई पिन डालने से बैंक से पैसा कटता है, कभी आता नहीं।'
+        }
       }
     ]
   }
